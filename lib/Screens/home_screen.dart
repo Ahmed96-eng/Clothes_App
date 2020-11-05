@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
               bottom: PreferredSize(
-                preferredSize: Size.fromHeight(125),
+                preferredSize: Size.fromHeight(height * 0.2),
                 child: Column(
                   children: [
                     Padding(
@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           isScrollable: true,
                           indicatorColor: Colors.red,
                           indicatorPadding: EdgeInsets.only(
-                              bottom: 0, top: 10, right: 5, left: 5),
+                              bottom: 0, top: 10, right: 20, left: 20),
                           tabs: [
                             customTabs(title: kAll),
                             customTabs(title: kShirts),
@@ -184,10 +184,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   searchValue: searchCont.text,
                 ),
                 // productsView(kShirts),
-                productsView(kShirts),
-                productsView(kTShirts),
-                productsView(kTrousers),
-                productsView(kJackets),
+                productsView(kShirts, _searchValue),
+                productsView(kTShirts, _searchValue),
+                productsView(kTrousers, _searchValue),
+                productsView(kJackets, _searchValue),
                 // TabsProductWidget(
                 //   category: kTShirts,
                 //   allproducts: _products,
@@ -211,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget productsView(String category) {
+  Widget productsView(String category, String searchValue) {
     return StreamBuilder<QuerySnapshot>(
         stream: _dataServices.loadedProducts(),
         // ignore: missing_return
@@ -247,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           .name
                           .toLowerCase()
                           .trim()
-                          .contains(_searchValue)
+                          .contains(searchValue)
                       ? Align(
                           alignment: Alignment.center,
                           child: GestureDetector(

@@ -97,70 +97,75 @@ class _CartScreenState extends State<CartScreen> {
             Container(
               decoration: SharedWidget.dialogDecoration(),
             ),
-            ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10, bottom: 5, left: 5, right: 5),
-                  child: Container(
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: ListTile(
-                          leading: Container(
-                            child: Image.network(
-                              products[index].image ?? "",
-                              fit: BoxFit.contain,
+            Container(
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: ListView.builder(
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                        top: 10, bottom: 5, left: 5, right: 5),
+                    child: Container(
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: ListTile(
+                            leading: Container(
+                              width: 50,
+                              height: 150,
+                              child: Image.network(
+                                products[index].image ?? "",
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                          title: Text(products[index].name),
-                          subtitle: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                  "Item Price: \$ ${products[index].price.toString()}"),
-                              Text(
-                                  "Selected Quantety: x${products[index].quantity.toString()}"),
-                            ],
-                          ),
-                          trailing: Container(
-                            width: 100,
-                            child: Row(
+                            title: Text(products[index].name),
+                            subtitle: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                IconButton(
-                                    icon: Icon(Icons.edit),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      cartItemProvider.removeProductFromCart(
-                                          products[index]);
-
-                                      Navigator.pushNamed(
-                                          context, ProductDetails.route,
-                                          arguments: products[index]);
-                                    }),
-                                IconButton(
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Theme.of(context).errorColor,
-                                    ),
-                                    onPressed: () {
-                                      cartItemProvider.removeProductFromCart(
-                                          products[index]);
-                                      SharedWidget.showToastMsg(
-                                          'Cart Deleted Successfully ',
-                                          time: 4);
-                                    }),
+                                Text(
+                                    "Item Price: \$ ${products[index].price.toString()}"),
+                                Text(
+                                    "Selected Quantety: x${products[index].quantity.toString()}"),
                               ],
+                            ),
+                            trailing: Container(
+                              width: 100,
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                      icon: Icon(Icons.edit),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        cartItemProvider.removeProductFromCart(
+                                            products[index]);
+
+                                        Navigator.pushNamed(
+                                            context, ProductDetails.route,
+                                            arguments: products[index]);
+                                      }),
+                                  IconButton(
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: Theme.of(context).errorColor,
+                                      ),
+                                      onPressed: () {
+                                        cartItemProvider.removeProductFromCart(
+                                            products[index]);
+                                        SharedWidget.showToastMsg(
+                                            'Cart Deleted Successfully ',
+                                            time: 4);
+                                      }),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
             Positioned(
               left: 2,
@@ -170,9 +175,21 @@ class _CartScreenState extends State<CartScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  ListTile(
+                    title: Text(
+                      'MY LOCATION IS :',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      _currentAddress ?? "Please Wait",
+                      style:
+                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 15),
+                    padding: const EdgeInsets.only(
+                        top: 0, bottom: 15, left: 15, right: 8),
                     child: Text(
                       "Total Price : \$ ${cartItemProvider.totalPrice}",
                       style:

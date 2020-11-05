@@ -1,12 +1,12 @@
-import 'package:Clothes_App/Providers/boolProvider.dart';
+// import 'package:Clothes_App/Providers/boolProvider.dart';
 import 'package:Clothes_App/Screens/auth_screen.dart';
 import 'package:Clothes_App/Services/Auth.dart';
 import 'package:Clothes_App/Services/DataServices.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
@@ -21,7 +21,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   String userId = "4fOTqYV0sPk8IzxkeYDk";
 
-  final _dataServices = DataServices();
+  // final _dataServices = DataServices();
 
   final _auth = Auth();
 

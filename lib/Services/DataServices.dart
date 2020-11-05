@@ -90,7 +90,7 @@ class DataServices {
         kProductCategory: product.category,
       });
     }
-    SharedWidget.showToastMsg('Add Success ', time: 2);
+    SharedWidget.showToastMsg('Add Success ', time: 3);
   }
 
   // List<Product> get _products {

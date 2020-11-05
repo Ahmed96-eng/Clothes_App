@@ -44,8 +44,10 @@ class _AllordersScreenState extends State<AllordersScreen> {
             } else {
               List<Order> orders = [];
               for (var doc in snapshot.data.docs) {
-                orders.add(
-                    Order(id: doc.id, totalPrice: doc.data()[kTotalPrice]));
+                orders.add(Order(
+                    id: doc.id,
+                    totalPrice: doc.data()[kTotalPrice],
+                    address: doc.data()[kAddress]));
               }
               return Stack(
                 children: [
@@ -72,10 +74,19 @@ class _AllordersScreenState extends State<AllordersScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text("# ${orders[index].id.toString()}"),
-                                SizedBox(height: 10),
-                                Center(
-                                    child: Text(
-                                        "Total Order Price: ${orders[index].totalPrice.toString()}")),
+                                SizedBox(height: 15),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, top: 5, bottom: 5),
+                                  child: Text(
+                                      "Total Order Price: ${orders[index].totalPrice.toString()}"),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, top: 5, bottom: 5),
+                                  child: Text(
+                                      "Address : ${orders[index].address.toString()}"),
+                                ),
                               ],
                             ),
                           ),

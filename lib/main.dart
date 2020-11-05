@@ -71,12 +71,12 @@ class MyApp extends StatelessWidget {
                   // primarySwatch: Colors.,
                   visualDensity: VisualDensity.adaptivePlatformDensity,
                 ),
-                // home: Test(),
-                initialRoute: rememberMe
-                    ?
-                    //  HomeScreen.route
-                    (isAdmin ? AdminCategoryScreen.route : HomeScreen.route)
-                    : AuthScreen.route,
+                home: AdminCategoryScreen(),
+                // initialRoute: rememberMe
+                //     ?
+                //  HomeScreen.route
+                // (isAdmin ? AdminCategoryScreen.route : HomeScreen.route)
+                // : AuthScreen.route,
                 routes: {
                   AuthScreen.route: (context) => AuthScreen(),
                   HomeScreen.route: (context) => HomeScreen(),

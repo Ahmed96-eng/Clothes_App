@@ -473,34 +473,34 @@ class _AuthCardState extends State<AuthCard> {
                       )
                     : Container(),
 
-                (_authMode == AuthMode.Login)
-                    ? Container(
-                        height: deviceSize.height * 0.05,
-                        padding: EdgeInsets.only(top: 5),
-                        child: Row(
-                          children: [
-                            Checkbox(
-                                activeColor: Colors.redAccent.withOpacity(0.4),
-                                autofocus: true,
-                                checkColor: Colors.black38,
-                                value: _checkBoxValue,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _checkBoxValue = value;
-                                  });
-                                }),
-                            Text(
-                              'Remember Me',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black45),
-                            ),
-                          ],
-                        ),
-                      )
-                    : Container(
-                        height: 10,
+                // (_authMode == AuthMode.Login)
+                //     ?
+                Container(
+                  height: deviceSize.height * 0.05,
+                  padding: EdgeInsets.only(top: 5),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                          activeColor: Colors.redAccent.withOpacity(0.4),
+                          autofocus: true,
+                          checkColor: Colors.black38,
+                          value: _checkBoxValue,
+                          onChanged: (value) {
+                            setState(() {
+                              _checkBoxValue = value;
+                            });
+                          }),
+                      Text(
+                        'Remember Me',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.black45),
                       ),
+                    ],
+                  ),
+                ),
+                // : Container(
+                //     height: 10,
+                //   ),
                 Container(
                   height: deviceSize.height * 0.06,
                   child: Row(
