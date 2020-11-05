@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "720581987396",
+    "firebase_url": "https://clothes-app-bab8f.firebaseio.com",
+    "project_id": "clothes-app-bab8f",
+    "storage_bucket": "clothes-app-bab8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720581987396:android:7f802397f9f42d727a8011",
+        "android_client_info": {
+          "package_name": "com.example.Clothes_App"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720581987396-41o93udgi0ao981kro6brp8f42n98s9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZbqNure3OHqRJfwlXqFur5DitrWpToeY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720581987396-41o93udgi0ao981kro6brp8f42n98s9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
