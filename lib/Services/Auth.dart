@@ -25,9 +25,10 @@ class Auth {
       });
     });
     List<String> userData = [email, userName, phoneNumber];
-
+    _pref.setString(kUserEmailSharedPreferences, email);
     _pref.setString(kUserIDSharedPreferences, _auth.currentUser.uid);
     print('zzzzzzzzzzzzzzzzz-> ${_pref.getString(kUserIDSharedPreferences)}');
+
     _pref.setStringList(kUserLisDataSharedPreferences, userData);
     // _pref.setString(kUserEmailSharedPreferences, email);
     // print('**********=>${_pref.getString(kUserEmailSharedPreferences)}');
@@ -49,7 +50,7 @@ class Auth {
 
       _pref.setString(kUserIDSharedPreferences, _auth.currentUser.uid);
 
-      _pref.setString(kUserIDSharedPreferences, _auth.currentUser.uid);
+      _pref.setString(kUserEmailSharedPreferences, email);
       print('zzzzzzzzzzzzzzzzz-> ${_pref.getString(kUserIDSharedPreferences)}');
 
       print('zzzzzzzzzzzzzzzzz-> ${_pref.getString(kUserIDSharedPreferences)}');

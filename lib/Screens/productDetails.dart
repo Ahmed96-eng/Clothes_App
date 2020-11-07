@@ -57,14 +57,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                   backgroundColor: Colors.redAccent.withOpacity(0.4),
                   pinned: true,
                   expandedHeight: height * 0.45,
-                  leading: Container(
-                    padding: EdgeInsets.all(5),
-                    child: FloatingActionButton(
-                      backgroundColor: Colors.blue[300],
-                      child: Icon(Icons.person),
-                      onPressed: () {
-                        Navigator.pushNamed(context, ProfileScreen.route);
-                      },
+                  leading: Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 8),
+                    child: Container(
+                      // padding: EdgeInsets.all(5),
+                      child: FloatingActionButton(
+                        backgroundColor: Colors.blue[300],
+                        child: Icon(Icons.person),
+                        onPressed: () {
+                          Navigator.pushNamed(context, ProfileScreen.route);
+                        },
+                      ),
                     ),
                   ),
                   flexibleSpace: FlexibleSpaceBar(
@@ -74,34 +77,44 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                   ),
                   actions: [
-                    Consumer<Favorite>(
-                      builder: (context, favoriteItemProvider, child) => Badge(
-                        color: Colors.blueGrey[300],
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.favorite,
-                            color: Colors.blue[300],
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5, top: 8),
+                      child: Consumer<Favorite>(
+                        builder: (context, favoriteItemProvider, child) =>
+                            Badge(
+                          color: Colors.blueGrey[300],
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.favorite,
+                              size: 30,
+                              color: Colors.blue[300],
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, FavoriteScreen.route);
+                            },
                           ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, FavoriteScreen.route);
-                          },
+                          value: favoriteItemProvider.favoriteCount.toString(),
                         ),
-                        value: favoriteItemProvider.favoriteCount.toString(),
                       ),
                     ),
-                    Consumer<Cart>(
-                      builder: (context, cartItemProvider, child) => Badge(
-                        color: Colors.blueGrey[300],
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.shopping_cart,
-                            color: Colors.blue[300],
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10, top: 8),
+                      child: Consumer<Cart>(
+                        builder: (context, cartItemProvider, child) => Badge(
+                          color: Colors.blueGrey[300],
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.shopping_cart,
+                              size: 30,
+                              color: Colors.blue[300],
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, CartScreen.route);
+                            },
                           ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, CartScreen.route);
-                          },
+                          value: cartItemProvider.cartCount.toString(),
                         ),
-                        value: cartItemProvider.cartCount.toString(),
                       ),
                     ),
                   ],
@@ -276,7 +289,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 }
                               }
                               if (exist) {
-                                SharedWidget.showToastMsg('Product Exsit',
+                                SharedWidget.showToastMsg(
+                                    'Product Already Exsit',
                                     time: 2);
                               } else {
                                 cartProvider.addProductToCart(product);

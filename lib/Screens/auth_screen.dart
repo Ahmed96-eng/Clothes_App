@@ -554,7 +554,7 @@ class _AuthCardState extends State<AuthCard> {
                           child: Text(_authMode == AuthMode.Login
                               ? 'LOGIN'
                               : 'SIGN UP'),
-                          onPressed: () {
+                          onPressed: () async {
                             rememberMeLoggedIn();
                             isAdminSharedPrefernce();
                             _submit();

@@ -45,9 +45,13 @@ class _AllordersScreenState extends State<AllordersScreen> {
               List<Order> orders = [];
               for (var doc in snapshot.data.docs) {
                 orders.add(Order(
-                    id: doc.id,
-                    totalPrice: doc.data()[kTotalPrice],
-                    address: doc.data()[kAddress]));
+                  id: doc.id,
+                  totalPrice: doc.data()[kTotalPrice],
+                  address: doc.data()[kAddress],
+                  userName: doc.data()[kUserNameKey],
+                  userEmail: doc.data()[kUserEmailKey],
+                  userPhoneNumber: doc.data()[kUserPhoneNumberKey],
+                ));
               }
               return Stack(
                 children: [
@@ -79,13 +83,31 @@ class _AllordersScreenState extends State<AllordersScreen> {
                                   padding: const EdgeInsets.only(
                                       left: 15, top: 5, bottom: 5),
                                   child: Text(
+                                      "$kUserNameKey : ${orders[index].userName.toString()}"),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, top: 5, bottom: 5),
+                                  child: Text(
+                                      "$kUserPhoneNumberKey : ${orders[index].userPhoneNumber.toString()}"),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, top: 5, bottom: 5),
+                                  child: Text(
+                                      "$kUserEmailKey : ${orders[index].userEmail.toString()}"),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, top: 5, bottom: 5),
+                                  child: Text(
                                       "Total Order Price: ${orders[index].totalPrice.toString()}"),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 15, top: 5, bottom: 5),
                                   child: Text(
-                                      "Address : ${orders[index].address.toString()}"),
+                                      "$kAddress : ${orders[index].address.toString()}"),
                                 ),
                               ],
                             ),

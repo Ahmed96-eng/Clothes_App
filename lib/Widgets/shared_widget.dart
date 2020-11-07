@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:Clothes_App/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
@@ -29,6 +30,9 @@ class SharedWidget {
     String contentDecorationLabel_2,
     String contentDecorationMessage_1,
     String contentDecorationMessage_2,
+    String fixedEmailHint,
+    TextEditingController textFieldcontroller_1,
+    TextEditingController textFieldcontroller_2,
   }) =>
       showDialog(
         context: context,
@@ -47,41 +51,97 @@ class SharedWidget {
                   fontSize: 20),
             ),
             content: contentDecoration
-                ? Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListTile(
-                        title: Text(
-                          contentDecorationLabel_1,
-                          overflow: TextOverflow.fade,
-                          softWrap: true,
-                          style: kDailogContentLabelStyle,
+                ? SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.grey[300],
+                              border: Border.all(
+                                  color: Colors.redAccent.withOpacity(0.4))),
+                          child: TextField(
+                            keyboardType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Enter Your FullName Please!'),
+                            controller: textFieldcontroller_1,
+                          ),
                         ),
-                        subtitle: Text(
-                          contentDecorationMessage_1,
-                          overflow: TextOverflow.fade,
-                          softWrap: true,
-                          style: kDailogContentMessageStyle,
+                        SizedBox(height: 5),
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.grey[300],
+                              border: Border.all(
+                                  color: Colors.redAccent.withOpacity(0.4))),
+                          child: TextField(
+                            keyboardType: TextInputType.phone,
+                            textInputAction: TextInputAction.done,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Enter Your PhoneNumber Please!'),
+                            controller: textFieldcontroller_2,
+                          ),
                         ),
-                      ),
-                      ListTile(
-                        // contentPadding: EdgeInsets.symmetric(vertical: 0),
-                        title: Text(
-                          contentDecorationLabel_2,
-                          overflow: TextOverflow.fade,
-                          softWrap: true,
-                          style: kDailogContentLabelStyle,
+                        SizedBox(height: 5),
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.grey[300],
+                              border: Border.all(
+                                  color: Colors.redAccent.withOpacity(0.4))),
+                          child: TextField(
+                            decoration: InputDecoration(
+                                hintStyle: TextStyle(
+                                    color: Colors.black, fontSize: 16),
+                                border: InputBorder.none,
+                                hintText: fixedEmailHint),
+                            enabled: false,
+                          ),
                         ),
-                        subtitle: Text(
-                          contentDecorationMessage_2,
-                          overflow: TextOverflow.fade,
-                          softWrap: true,
-                          style: kDailogContentMessageStyle,
+                        SizedBox(height: 5),
+                        ListTile(
+                          title: Text(
+                            contentDecorationLabel_1,
+                            overflow: TextOverflow.fade,
+                            softWrap: true,
+                            style: kDailogContentLabelStyle,
+                          ),
+                          subtitle: Text(
+                            contentDecorationMessage_1,
+                            overflow: TextOverflow.fade,
+                            softWrap: true,
+                            style: kDailogContentMessageStyle,
+                          ),
                         ),
-                      ),
-                    ],
+                        ListTile(
+                          // contentPadding: EdgeInsets.symmetric(vertical: 0),
+                          title: Text(
+                            contentDecorationLabel_2,
+                            overflow: TextOverflow.fade,
+                            softWrap: true,
+                            style: kDailogContentLabelStyle,
+                          ),
+                          subtitle: Text(
+                            contentDecorationMessage_2,
+                            overflow: TextOverflow.fade,
+                            softWrap: true,
+                            style: kDailogContentMessageStyle,
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 : Text(
                     message,

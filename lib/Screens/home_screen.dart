@@ -9,7 +9,9 @@ import 'package:Clothes_App/Screens/productDetails.dart';
 import 'package:Clothes_App/Screens/profile_screen.dart';
 import 'package:Clothes_App/Services/DataServices.dart';
 import 'package:Clothes_App/Widgets/AllProductWidgwt.dart';
-import 'package:Clothes_App/Widgets/TabsProductWidget.dart';
+
+import 'package:Clothes_App/Widgets/app_localizations.dart';
+
 import 'package:Clothes_App/Widgets/badge.dart';
 import 'package:Clothes_App/Widgets/custom_tabs.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
@@ -17,6 +19,7 @@ import 'package:Clothes_App/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   static const route = 'home_screen';
@@ -36,8 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     searchCont = TextEditingController();
     // Future.delayed(Duration.zero).then((value) => );
-
+    localStringSP;
+    print('zzzzzzzzzzzzzzzzzxxxxxxxxxxccccccccccc   $localStringSP');
     super.initState();
+  }
+
+  Future get localStringSP async {
+    final _prefs = await SharedPreferences.getInstance();
+    return _prefs.getString(kLocalStringSharedPreferences);
   }
 
   @override
@@ -72,45 +81,56 @@ class _HomeScreenState extends State<HomeScreen> {
         length: 5,
         child: Scaffold(
           appBar: AppBar(
-              leading: Container(
-                padding: EdgeInsets.all(5),
-                child: FloatingActionButton(
-                  backgroundColor: Colors.blue[300],
-                  child: Icon(Icons.person),
-                  onPressed: () {
-                    Navigator.pushNamed(context, ProfileScreen.route);
-                  },
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 10, top: 8),
+                child: Container(
+                  // padding: EdgeInsets.all(5),
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.blue[300],
+                    child: Icon(Icons.person),
+                    onPressed: () {
+                      Navigator.pushNamed(context, ProfileScreen.route);
+                    },
+                  ),
                 ),
               ),
               actions: [
-                Consumer<Favorite>(
-                  builder: (context, favoriteItemProvider, child) => Badge(
-                    color: Colors.blueGrey[300],
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.favorite,
-                        color: Colors.blue[300],
+                Padding(
+                  padding: const EdgeInsets.only(right: 5, top: 8),
+                  child: Consumer<Favorite>(
+                    builder: (context, favoriteItemProvider, child) => Badge(
+                      color: Colors.blueGrey[300],
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.favorite,
+                          size: 30,
+                          color: Colors.blue[300],
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, FavoriteScreen.route);
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, FavoriteScreen.route);
-                      },
+                      value: favoriteItemProvider.favoriteCount.toString(),
                     ),
-                    value: favoriteItemProvider.favoriteCount.toString(),
                   ),
                 ),
-                Consumer<Cart>(
-                  builder: (context, cartItemProvider, child) => Badge(
-                    color: Colors.blueGrey[300],
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.shopping_cart,
-                        color: Colors.blue[300],
+                Padding(
+                  padding: const EdgeInsets.only(right: 10, top: 8),
+                  child: Consumer<Cart>(
+                    builder: (context, cartItemProvider, child) => Badge(
+                      color: Colors.blueGrey[300],
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.shopping_cart,
+                          size: 30,
+                          color: Colors.blue[300],
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, CartScreen.route);
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, CartScreen.route);
-                      },
+                      value: cartItemProvider.cartCount.toString(),
                     ),
-                    value: cartItemProvider.cartCount.toString(),
                   ),
                 ),
               ],
@@ -164,11 +184,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           indicatorPadding: EdgeInsets.only(
                               bottom: 0, top: 10, right: 20, left: 20),
                           tabs: [
-                            customTabs(title: kAll),
-                            customTabs(title: kShirts),
-                            customTabs(title: kTShirts),
-                            customTabs(title: kTrousers),
-                            customTabs(title: kJackets),
+                            customTabs(
+                                title: AppLocalizations.of(context)
+                                    .translate("All")),
+                            customTabs(
+                                title: AppLocalizations.of(context)
+                                    .translate("Shirt")),
+                            customTabs(
+                                title: AppLocalizations.of(context)
+                                    .translate("TShirt")),
+                            customTabs(
+                                title: AppLocalizations.of(context)
+                                    .translate("Trouser")),
+                            customTabs(
+                                title: AppLocalizations.of(context)
+                                    .translate("Jacket")),
                           ]),
                     )
                   ],

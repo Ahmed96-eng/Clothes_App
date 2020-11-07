@@ -4,6 +4,7 @@ import 'package:Clothes_App/Providers/favorite.dart';
 import 'package:Clothes_App/Screens/home_screen.dart';
 import 'package:Clothes_App/Screens/productDetails.dart';
 import 'package:Clothes_App/Screens/profile_screen.dart';
+import 'package:Clothes_App/Widgets/appBar_widget.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,72 +31,69 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return WillPopScope(
       onWillPop: _willPopScope,
       child: Scaffold(
-        appBar: AppBar(
-          leading: Container(
-            padding: EdgeInsets.all(5),
-            child: FloatingActionButton(
-              backgroundColor: Colors.blue[300],
-              child: Icon(Icons.person),
-              onPressed: () {
-                Navigator.pushNamed(context, ProfileScreen.route);
-              },
-            ),
-          ),
-        ),
+        appBar: appBarWidgit(context, 'My Favorites'),
         body: Stack(
           children: [
             Container(
               decoration: SharedWidget.dialogDecoration(),
             ),
-            ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, ProductDetails.route,
-                          arguments: products[index]);
-                    },
-                    child: Card(
-                      child: ListTile(
-                        leading: Container(
-                          child: Image.network(
-                            products[index].image ?? "",
-                            fit: BoxFit.cover,
+            products.length == 0
+                ? Center(
+                    child: Text(
+                      "No Product Found !!!!!!!!",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, ProductDetails.route,
+                                arguments: products[index]);
+                          },
+                          child: Card(
+                            child: ListTile(
+                              leading: Container(
+                                child: Image.network(
+                                  products[index].image ?? "",
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              title: Text(products[index].name),
+                              subtitle: Text(
+                                  "Item Price: \$ ${products[index].price.toString()}"),
+                              // trailing: Consumer<Favorite>(
+                              //   builder: (context, favoriteItemPrpvider, child) =>
+                              //       Container(
+                              //     width: 50,
+                              //     child: IconButton(
+                              //         icon: Icon(
+                              //           Icons.delete,
+                              //           color: Theme.of(context).errorColor,
+                              //         ),
+                              //         onPressed: () {
+                              //           favoriteItemPrpvider
+                              //               .removeProductFromFavorite(products[index]);
+
+                              //           favoriteItemPrpvider.changeFavorite(
+                              //               products[index].isFavorite = false);
+
+                              //           SharedWidget.showToastMsg(
+                              //               'Product Deleted From Favorite Success ',
+                              //               time: 2);
+                              //         }),
+                              //   ),
+                              // ),
+                            ),
                           ),
                         ),
-                        title: Text(products[index].name),
-                        subtitle: Text(
-                            "Item Price: \$ ${products[index].price.toString()}"),
-                        // trailing: Consumer<Favorite>(
-                        //   builder: (context, favoriteItemPrpvider, child) =>
-                        //       Container(
-                        //     width: 50,
-                        //     child: IconButton(
-                        //         icon: Icon(
-                        //           Icons.delete,
-                        //           color: Theme.of(context).errorColor,
-                        //         ),
-                        //         onPressed: () {
-                        //           favoriteItemPrpvider
-                        //               .removeProductFromFavorite(products[index]);
-
-                        //           favoriteItemPrpvider.changeFavorite(
-                        //               products[index].isFavorite = false);
-
-                        //           SharedWidget.showToastMsg(
-                        //               'Delete From Favorite Success ',
-                        //               time: 2);
-                        //         }),
-                        //   ),
-                        // ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ],
         ),
       ),

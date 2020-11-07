@@ -1,14 +1,18 @@
+import 'dart:ui';
+
 import 'package:Clothes_App/Models/product_model.dart';
 import 'package:Clothes_App/Providers/cart.dart';
 import 'package:Clothes_App/Screens/home_screen.dart';
 import 'package:Clothes_App/Screens/productDetails.dart';
 import 'package:Clothes_App/Screens/profile_screen.dart';
 import 'package:Clothes_App/Services/DataServices.dart';
+import 'package:Clothes_App/Widgets/appBar_widget.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
 import 'package:Clothes_App/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartScreen extends StatefulWidget {
   static const route = 'cart_screen';
@@ -18,10 +22,18 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  GlobalKey _formKey = GlobalKey<FormState>();
   final _dataServices = DataServices();
   Position _currentPosition;
   String _currentAddress;
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+  TextEditingController userNameControler = TextEditingController();
+  TextEditingController userPhoneControler = TextEditingController();
+  Map<String, String> _userData = {
+    kUserNameKey: '',
+    kUserEmailKey: '',
+    kUserPhoneNumberKey: '',
+  };
 
   getCurrentLocation() {
     geolocator
@@ -73,6 +85,13 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   @override
+  void dispose() {
+    userNameControler.dispose();
+    userPhoneControler.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // Product product = ModalRoute.of(context).settings.arguments;
     final cartItemProvider = Provider.of<Cart>(context, listen: false);
@@ -80,93 +99,95 @@ class _CartScreenState extends State<CartScreen> {
     return WillPopScope(
       onWillPop: _willPopScope,
       child: Scaffold(
-        appBar: AppBar(
-          leading: Container(
-            padding: EdgeInsets.all(5),
-            child: FloatingActionButton(
-              backgroundColor: Colors.blue[300],
-              child: Icon(Icons.person),
-              onPressed: () {
-                Navigator.pushNamed(context, ProfileScreen.route);
-              },
-            ),
-          ),
-        ),
+        appBar: appBarWidgit(context, 'My Cart'),
         body: Stack(
           children: [
             Container(
               decoration: SharedWidget.dialogDecoration(),
             ),
-            Container(
-              height: MediaQuery.of(context).size.height * 0.6,
-              child: ListView.builder(
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10, bottom: 5, left: 5, right: 5),
-                    child: Container(
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: ListTile(
-                            leading: Container(
-                              width: 50,
-                              height: 150,
-                              child: Image.network(
-                                products[index].image ?? "",
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            title: Text(products[index].name),
-                            subtitle: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                    "Item Price: \$ ${products[index].price.toString()}"),
-                                Text(
-                                    "Selected Quantety: x${products[index].quantity.toString()}"),
-                              ],
-                            ),
-                            trailing: Container(
-                              width: 100,
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                      icon: Icon(Icons.edit),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        cartItemProvider.removeProductFromCart(
-                                            products[index]);
+            products.length == 0
+                ? Center(
+                    child: Text(
+                      "No Product Found !!!!!!!!",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                : Container(
+                    height: MediaQuery.of(context).size.height * 0.6,
+                    child: ListView.builder(
+                      itemCount: products.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              top: 10, bottom: 5, left: 5, right: 5),
+                          child: Container(
+                            child: Card(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                child: ListTile(
+                                  leading: Container(
+                                    width: 50,
+                                    height: 150,
+                                    child: Image.network(
+                                      products[index].image ?? "",
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  title: Text(products[index].name),
+                                  subtitle: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          "Item Price: \$ ${products[index].price.toString()}"),
+                                      Text(
+                                          "Selected Quantety: x${products[index].quantity.toString()}"),
+                                    ],
+                                  ),
+                                  trailing: Container(
+                                    width: 100,
+                                    child: Row(
+                                      children: [
+                                        IconButton(
+                                            icon: Icon(Icons.edit),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              cartItemProvider
+                                                  .removeProductFromCart(
+                                                      products[index]);
 
-                                        Navigator.pushNamed(
-                                            context, ProductDetails.route,
-                                            arguments: products[index]);
-                                      }),
-                                  IconButton(
-                                      icon: Icon(
-                                        Icons.delete,
-                                        color: Theme.of(context).errorColor,
-                                      ),
-                                      onPressed: () {
-                                        cartItemProvider.removeProductFromCart(
-                                            products[index]);
-                                        SharedWidget.showToastMsg(
-                                            'Cart Deleted Successfully ',
-                                            time: 4);
-                                      }),
-                                ],
+                                              Navigator.pushNamed(
+                                                  context, ProductDetails.route,
+                                                  arguments: products[index]);
+                                            }),
+                                        IconButton(
+                                            icon: Icon(
+                                              Icons.delete,
+                                              color:
+                                                  Theme.of(context).errorColor,
+                                            ),
+                                            onPressed: () {
+                                              cartItemProvider
+                                                  .removeProductFromCart(
+                                                      products[index]);
+                                              SharedWidget.showToastMsg(
+                                                  'Product Deleted Successfully ',
+                                                  time: 4);
+                                            }),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
             Positioned(
               left: 2,
               right: 2,
@@ -223,7 +244,7 @@ class _CartScreenState extends State<CartScreen> {
                                 SharedWidget.showAlertDailog(
                                   context: context,
                                   labelYes: 'Ok',
-                                  message: 'No Product Found',
+                                  message: 'No Product Found !!!!!!!!',
                                   labelNo: '',
                                   titlle: 'Warning',
                                   onPressNo: () {},
@@ -233,7 +254,9 @@ class _CartScreenState extends State<CartScreen> {
                                   },
                                 );
                               }
-                            : () {
+                            : () async {
+                                final _prefs =
+                                    await SharedPreferences.getInstance();
                                 // getCurrentLocation() ??
                                 //     Future.delayed(Duration.zero);
                                 SharedWidget.showAlertDailog(
@@ -252,11 +275,37 @@ class _CartScreenState extends State<CartScreen> {
                                   contentDecorationLabel_2: 'TOTAL PRICE IS : ',
                                   contentDecorationMessage_2:
                                       '\$ ${cartItemProvider.totalPrice}',
+                                  textFieldcontroller_1: userNameControler,
+                                  textFieldcontroller_2: userPhoneControler,
+                                  fixedEmailHint: _prefs
+                                      .getString(kUserEmailSharedPreferences),
                                   onPressYes: () {
+                                    if (userNameControler.text.isEmpty ||
+                                        userPhoneControler.text.isEmpty) {
+                                      return SharedWidget.showToastMsg(
+                                          'Please Complete All Fields',
+                                          time: 4);
+                                    } else if (userPhoneControler.text
+                                            .trim()
+                                            .length <
+                                        11) {
+                                      return SharedWidget.showToastMsg(
+                                          'Phone Number Not Correct, Please try again',
+                                          time: 4);
+                                    } else if (_currentAddress == null) {
+                                      return SharedWidget.showToastMsg(
+                                          'Please check your location',
+                                          time: 4);
+                                    }
                                     Navigator.of(context).pop();
                                     _dataServices.addOrder({
                                       kTotalPrice: cartItemProvider.totalPrice,
                                       kAddress: _currentAddress ?? "Waiting",
+                                      kUserNameKey: userNameControler.text,
+                                      kUserPhoneNumberKey:
+                                          userPhoneControler.text,
+                                      kUserEmailKey: _prefs.getString(
+                                          kUserEmailSharedPreferences),
                                     }, products);
 
                                     products.clear();

@@ -1,11 +1,15 @@
 // import 'package:Clothes_App/Providers/boolProvider.dart';
+
+import 'package:Clothes_App/Providers/language_provider.dart';
 import 'package:Clothes_App/Screens/auth_screen.dart';
 import 'package:Clothes_App/Services/Auth.dart';
-import 'package:Clothes_App/Services/DataServices.dart';
+
+import 'package:Clothes_App/Widgets/app_localizations.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,6 +54,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
@@ -90,6 +96,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   //     ) ??
                                   //     "",
                                 )),
+                                SizedBox(height: 5),
+                                Container(
+                                  width: 200,
+                                  child: ExpansionTile(
+                                    expandedAlignment: Alignment.center,
+                                    children: <Widget>[
+                                      ListTile(
+                                          contentPadding: EdgeInsets.only(
+                                              left: 30,
+                                              right: 0,
+                                              top: 0,
+                                              bottom: 0),
+                                          onTap: () {
+                                            languageProvider
+                                                .updateLanguage('en');
+                                          },
+                                          title: Text(
+                                            AppLocalizations.of(context)
+                                                .translate("English Language"),
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue[900]),
+                                          )),
+                                      ListTile(
+                                          onTap: () {
+                                            languageProvider
+                                                .updateLanguage('ar');
+                                          },
+                                          contentPadding: EdgeInsets.only(
+                                              left: 30,
+                                              right: 0,
+                                              top: 0,
+                                              bottom: 0),
+                                          title: Text(
+                                            AppLocalizations.of(context)
+                                                .translate("Arabic Language"),
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue[900]),
+                                          ))
+                                    ],
+                                    title: Text(
+                                      AppLocalizations.of(context)
+                                          .translate("Language"),
+                                      style: TextStyle(
+                                        color: Colors.blue[900],
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    leading: Icon(
+                                      Icons.language,
+                                      color: Theme.of(context).iconTheme.color,
+                                      size: 40,
+                                    ),
+                                  ),
+                                ),
                                 SizedBox(height: 10),
                                 Transform.translate(
                                   offset: Offset(
@@ -146,25 +211,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: languageProvider
+                                                .appLocale.languageCode ==
+                                            'en'
+                                        ? MainAxisAlignment.start
+                                        : MainAxisAlignment.start,
+                                    crossAxisAlignment: languageProvider
+                                                .appLocale.languageCode ==
+                                            'en'
+                                        ? CrossAxisAlignment.start
+                                        : CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "$kUserNameKey: ${snapshot.data.getStringList(kUserLisDataSharedPreferences)[1]}",
-                                        style: kProfileStyle,
+                                      ListTile(
+                                        leading: Text(
+                                          AppLocalizations.of(context)
+                                              .translate("Name"),
+                                          style: kProfileStyle,
+                                        ),
+                                        title: Text(
+                                          snapshot.data.getStringList(
+                                              kUserLisDataSharedPreferences)[1],
+                                          style: kProfileStyle,
+                                        ),
                                       ),
-                                      SizedBox(height: 15),
-                                      Text(
-                                        "$kUserEmailKey: ${snapshot.data.getStringList(kUserLisDataSharedPreferences)[0]}",
-                                        style: kProfileStyle,
+                                      ListTile(
+                                        leading: Text(
+                                          AppLocalizations.of(context)
+                                              .translate("Email"),
+                                          style: kProfileStyle,
+                                        ),
+                                        title: Text(
+                                          snapshot.data.getStringList(
+                                              kUserLisDataSharedPreferences)[0],
+                                          style: kProfileStyle,
+                                        ),
                                       ),
-                                      SizedBox(height: 15),
-                                      Text(
-                                        "$kUserPhoneNumberKey: ${snapshot.data.getStringList(kUserLisDataSharedPreferences)[2]}",
-                                        style: kProfileStyle,
+                                      ListTile(
+                                        leading: Text(
+                                          AppLocalizations.of(context)
+                                              .translate("Mobile"),
+                                          style: kProfileStyle,
+                                        ),
+                                        title: Text(
+                                          snapshot.data.getStringList(
+                                              kUserLisDataSharedPreferences)[2],
+                                          style: kProfileStyle,
+                                        ),
                                       ),
-                                      SizedBox(height: 15),
+                                      // Text(
+                                      //   "$kUserNameKey: ${snapshot.data.getStringList(kUserLisDataSharedPreferences)[1]}",
+                                      //   style: kProfileStyle,
+                                      // ),
+                                      // SizedBox(height: 15),
+                                      // Text(
+                                      //   "$kUserEmailKey: ${snapshot.data.getStringList(kUserLisDataSharedPreferences)[0]}",
+                                      //   style: kProfileStyle,
+                                      // ),
+                                      // SizedBox(height: 15),
+                                      // Text(
+                                      //   "$kUserPhoneNumberKey: ${snapshot.data.getStringList(kUserLisDataSharedPreferences)[2]}",
+                                      //   style: kProfileStyle,
+                                      // ),
+                                      // SizedBox(height: 15),
                                     ],
                                   ),
                                 ),

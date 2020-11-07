@@ -43,7 +43,12 @@ String kUserIsAdminSharedPreferences = 'isAdmin';
 String kUserEmailSharedPreferences = 'userEmail';
 String kUserIDSharedPreferences = 'userId';
 String kUserLisDataSharedPreferences = 'userEListData';
+String kLocalStringSharedPreferences = 'localString';
+String kUserLisDataAllSharedPreferences = 'allDataUserListData';
 
+///////////////// Language Keys ///////////////////////
+
+String kLanguageCode = "languageCode";
 /////////////////// Style keys ///////////////
 
 TextStyle kProfileStyle = TextStyle(

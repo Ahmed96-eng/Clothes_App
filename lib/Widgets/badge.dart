@@ -19,8 +19,8 @@ class Badge extends StatelessWidget {
       children: [
         child,
         Positioned(
-          right: 8,
-          top: 5,
+          right: 3,
+          top: 0,
           child: Container(
             padding: EdgeInsets.all(3.0),
             // color: Theme.of(context).accentColor,
