@@ -5,6 +5,7 @@ import 'package:Clothes_App/Screens/home_screen.dart';
 import 'package:Clothes_App/Screens/productDetails.dart';
 import 'package:Clothes_App/Screens/profile_screen.dart';
 import 'package:Clothes_App/Widgets/appBar_widget.dart';
+import 'package:Clothes_App/Widgets/app_localizations.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return WillPopScope(
       onWillPop: _willPopScope,
       child: Scaffold(
-        appBar: appBarWidgit(context, 'My Favorites'),
+        appBar: appBarWidgit(
+          context,
+          AppLocalizations.of(context).translate("My Favorite"),
+        ),
         body: Stack(
           children: [
             Container(
@@ -40,7 +44,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             products.length == 0
                 ? Center(
                     child: Text(
-                      "No Product Found !!!!!!!!",
+                      AppLocalizations.of(context)
+                          .translate("No Product Found"),
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),

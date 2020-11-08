@@ -17,7 +17,7 @@ PreferredSizeWidget appBarWidgit(
     preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
     child: AppBar(
       leading: Padding(
-        padding: const EdgeInsets.only(left: 10, top: 8),
+        padding: const EdgeInsets.only(left: 10, right: 10, top: 8),
         child: Container(
           // padding: EdgeInsets.all(5),
           child: FloatingActionButton(

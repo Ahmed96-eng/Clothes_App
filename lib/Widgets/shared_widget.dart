@@ -1,7 +1,11 @@
 import 'dart:ui';
+import 'package:Clothes_App/Providers/language_provider.dart';
 import 'package:Clothes_App/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
+import 'package:provider/provider.dart';
+
+import 'app_localizations.dart';
 
 class SharedWidget {
   static showToastMsg(message, {int time, fontSize = 16.0}) =>
@@ -50,12 +54,25 @@ class SharedWidget {
                   color: Colors.grey[800],
                   fontSize: 20),
             ),
+
             content: contentDecoration
                 ? SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment:
+                          Provider.of<LanguageProvider>(context, listen: false)
+                                      .appLocale
+                                      .languageCode ==
+                                  'en'
+                              ? MainAxisAlignment.start
+                              : MainAxisAlignment.end,
+                      crossAxisAlignment:
+                          Provider.of<LanguageProvider>(context, listen: false)
+                                      .appLocale
+                                      .languageCode ==
+                                  'en'
+                              ? CrossAxisAlignment.start
+                              : CrossAxisAlignment.end,
                       children: [
                         Container(
                           padding:
@@ -70,7 +87,8 @@ class SharedWidget {
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: 'Enter Your FullName Please!'),
+                                hintText: AppLocalizations.of(context)
+                                    .translate("Enter your fullName please")),
                             controller: textFieldcontroller_1,
                           ),
                         ),
@@ -88,7 +106,9 @@ class SharedWidget {
                             textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: 'Enter Your PhoneNumber Please!'),
+                                hintText: AppLocalizations.of(context)
+                                    .translate(
+                                        "Enter your phoneNumber please")),
                             controller: textFieldcontroller_2,
                           ),
                         ),
@@ -133,11 +153,22 @@ class SharedWidget {
                             softWrap: true,
                             style: kDailogContentLabelStyle,
                           ),
-                          subtitle: Text(
-                            contentDecorationMessage_2,
-                            overflow: TextOverflow.fade,
-                            softWrap: true,
-                            style: kDailogContentMessageStyle,
+                          subtitle: Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8),
+                                child: Text(
+                                  contentDecorationMessage_2,
+                                  overflow: TextOverflow.fade,
+                                  softWrap: true,
+                                  style: kDailogContentMessageStyle,
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                  AppLocalizations.of(context).translate("EGP"),
+                                  style: kDailogContentMessageStyle),
+                            ],
                           ),
                         ),
                       ],
@@ -183,8 +214,8 @@ class SharedWidget {
     return BoxDecoration(
       gradient: LinearGradient(
         colors: [
-          Colors.white.withOpacity(0.3),
-          Colors.blueAccent.withOpacity(0.7),
+          Colors.white,
+          Colors.cyan[300].withOpacity(0.8),
         ],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,

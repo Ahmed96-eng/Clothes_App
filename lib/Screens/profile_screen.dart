@@ -230,7 +230,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         title: Text(
                                           snapshot.data.getStringList(
-                                              kUserLisDataSharedPreferences)[1],
+                                              kUserLisDataSharedPreferences)[1]??"",
                                           style: kProfileStyle,
                                         ),
                                       ),
@@ -242,7 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         title: Text(
                                           snapshot.data.getStringList(
-                                              kUserLisDataSharedPreferences)[0],
+                                              kUserLisDataSharedPreferences)[0]??"",
                                           style: kProfileStyle,
                                         ),
                                       ),
@@ -254,7 +254,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ),
                                         title: Text(
                                           snapshot.data.getStringList(
-                                              kUserLisDataSharedPreferences)[2],
+                                              kUserLisDataSharedPreferences)[2]??"",
                                           style: kProfileStyle,
                                         ),
                                       ),

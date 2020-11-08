@@ -9,7 +9,8 @@ Widget customTabs({String id, @required String title}) {
     decoration: BoxDecoration(
         color: Colors.grey.withOpacity(0.1),
         border: Border.all(
-          color: Colors.redAccent.withOpacity(0.4),
+          width: 1.5,
+          color: Colors.white24,
         ),
         borderRadius: BorderRadius.circular(15)),
     child: Tab(

@@ -35,29 +35,20 @@ class AuthScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(bottom: 20.0, left: 10),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 94.0),
-                    transform: Matrix4.rotationZ(-6 * pi / 180)
-                      ..translate(-10.0),
+                    height: deviceSize.height * 0.2,
+                    width: deviceSize.width * 0.32,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey.shade400,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 8,
-                          color: Colors.black26,
-                          offset: Offset(0, 2),
-                        )
-                      ],
-                    ),
-                    child: Text(
-                      'Clothes_App',
-                      style: TextStyle(
-                        color: Theme.of(context).accentTextTheme.title.color,
-                        fontSize: 25,
-                        fontFamily: 'Anton',
-                        fontWeight: FontWeight.bold,
+                      color: Colors.cyan,
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage("assets/image/clothes_logo.png"),
+                        fit: BoxFit.cover,
+                        alignment: Alignment.bottomLeft,
+                        // centerSlice: Rect.fromCenter(
+                        //   center: Offset(0, 0),
+                        //   width: deviceSize.width * 0.3,
+                        //   height: deviceSize.height * 0.8,
+                        // ),
                       ),
                     ),
                   ),

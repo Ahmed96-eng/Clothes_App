@@ -2,11 +2,13 @@ import 'dart:ui';
 
 import 'package:Clothes_App/Models/product_model.dart';
 import 'package:Clothes_App/Providers/cart.dart';
+import 'package:Clothes_App/Providers/language_provider.dart';
 import 'package:Clothes_App/Screens/home_screen.dart';
 import 'package:Clothes_App/Screens/productDetails.dart';
 import 'package:Clothes_App/Screens/profile_screen.dart';
 import 'package:Clothes_App/Services/DataServices.dart';
 import 'package:Clothes_App/Widgets/appBar_widget.dart';
+import 'package:Clothes_App/Widgets/app_localizations.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
 import 'package:Clothes_App/constants.dart';
 import 'package:flutter/material.dart';
@@ -22,18 +24,12 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  GlobalKey _formKey = GlobalKey<FormState>();
   final _dataServices = DataServices();
   Position _currentPosition;
   String _currentAddress;
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
   TextEditingController userNameControler = TextEditingController();
   TextEditingController userPhoneControler = TextEditingController();
-  Map<String, String> _userData = {
-    kUserNameKey: '',
-    kUserEmailKey: '',
-    kUserPhoneNumberKey: '',
-  };
 
   getCurrentLocation() {
     geolocator
@@ -94,12 +90,15 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     // Product product = ModalRoute.of(context).settings.arguments;
+    final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
     final cartItemProvider = Provider.of<Cart>(context, listen: false);
     List<Product> products = Provider.of<Cart>(context).products;
     return WillPopScope(
       onWillPop: _willPopScope,
       child: Scaffold(
-        appBar: appBarWidgit(context, 'My Cart'),
+        appBar: appBarWidgit(
+            context, AppLocalizations.of(context).translate("My Cart")),
         body: Stack(
           children: [
             Container(
@@ -108,7 +107,8 @@ class _CartScreenState extends State<CartScreen> {
             products.length == 0
                 ? Center(
                     child: Text(
-                      "No Product Found !!!!!!!!",
+                      AppLocalizations.of(context)
+                          .translate("No Product Found"),
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -193,12 +193,18 @@ class _CartScreenState extends State<CartScreen> {
               right: 2,
               bottom: 10,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment:
+                    languageProvider.appLocale.languageCode == 'en'
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.end,
+                crossAxisAlignment:
+                    languageProvider.appLocale.languageCode == 'en'
+                        ? CrossAxisAlignment.start
+                        : CrossAxisAlignment.end,
                 children: [
                   ListTile(
                     title: Text(
-                      'MY LOCATION IS :',
+                      AppLocalizations.of(context).translate("My Location"),
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -208,15 +214,40 @@ class _CartScreenState extends State<CartScreen> {
                           TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 0, bottom: 15, left: 15, right: 8),
-                    child: Text(
-                      "Total Price : \$ ${cartItemProvider.totalPrice}",
+                  ListTile(
+                    title: Text(
+                      AppLocalizations.of(context).translate("Total Price"),
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
+                    subtitle: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text(
+                            cartItemProvider.totalPrice.toString(),
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          AppLocalizations.of(context).translate("EGP"),
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(
+                  //       top: 0, bottom: 15, left: 15, right: 8),
+                  //   child: Text(
+                  //     "Total Price : \$ ${cartItemProvider.totalPrice}",
+                  //     style:
+                  //         TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  //   ),
+                  // ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
@@ -232,7 +263,7 @@ class _CartScreenState extends State<CartScreen> {
                         label: Padding(
                           padding: const EdgeInsets.all(16),
                           child: Text(
-                            'Add Order',
+                            AppLocalizations.of(context).translate("ADD ORDER"),
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -243,10 +274,13 @@ class _CartScreenState extends State<CartScreen> {
                             ? () {
                                 SharedWidget.showAlertDailog(
                                   context: context,
-                                  labelYes: 'Ok',
-                                  message: 'No Product Found !!!!!!!!',
+                                  labelYes: AppLocalizations.of(context)
+                                      .translate("Ok"),
+                                  message: AppLocalizations.of(context)
+                                      .translate("No Product Found"),
                                   labelNo: '',
-                                  titlle: 'Warning',
+                                  titlle: AppLocalizations.of(context)
+                                      .translate("Warning"),
                                   onPressNo: () {},
                                   isConfirm: false,
                                   onPressYes: () {
@@ -261,20 +295,27 @@ class _CartScreenState extends State<CartScreen> {
                                 //     Future.delayed(Duration.zero);
                                 SharedWidget.showAlertDailog(
                                   context: context,
-                                  labelYes: 'Order Now',
-                                  labelNo: 'Cancel',
-                                  titlle: 'CONFIRM ORDER',
+                                  labelYes: AppLocalizations.of(context)
+                                      .translate("Order Now"),
+                                  labelNo: AppLocalizations.of(context)
+                                      .translate("Cancel"),
+                                  titlle: AppLocalizations.of(context)
+                                      .translate("Confirm Order"),
                                   onPressNo: () {
                                     Navigator.of(context).pop();
                                   },
                                   isConfirm: true,
                                   contentDecoration: true,
-                                  contentDecorationLabel_1: 'MY LOCATION IS : ',
+                                  contentDecorationLabel_1:
+                                      AppLocalizations.of(context)
+                                          .translate("My Location"),
                                   contentDecorationMessage_1:
                                       _currentAddress ?? "Waiting",
-                                  contentDecorationLabel_2: 'TOTAL PRICE IS : ',
+                                  contentDecorationLabel_2:
+                                      AppLocalizations.of(context)
+                                          .translate("Total Price"),
                                   contentDecorationMessage_2:
-                                      '\$ ${cartItemProvider.totalPrice}',
+                                      ' ${cartItemProvider.totalPrice}',
                                   textFieldcontroller_1: userNameControler,
                                   textFieldcontroller_2: userPhoneControler,
                                   fixedEmailHint: _prefs

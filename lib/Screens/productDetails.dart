@@ -1,8 +1,10 @@
 import 'package:Clothes_App/Models/product_model.dart';
 import 'package:Clothes_App/Providers/cart.dart';
 import 'package:Clothes_App/Providers/favorite.dart';
+import 'package:Clothes_App/Providers/language_provider.dart';
 import 'package:Clothes_App/Screens/favorite_screen.dart';
 import 'package:Clothes_App/Screens/profile_screen.dart';
+import 'package:Clothes_App/Widgets/app_localizations.dart';
 import 'package:Clothes_App/Widgets/badge.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +40,8 @@ class _ProductDetailsState extends State<ProductDetails> {
     Product product = ModalRoute.of(context).settings.arguments;
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final languageProvider =
+        Provider.of<LanguageProvider>(context, listen: false);
     return WillPopScope(
       onWillPop: _willPopScope,
       child: Scaffold(
@@ -189,18 +193,37 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                    child: Text(
-                      "Category: ${product.category.toString()}",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    child: Row(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context).translate("Category"),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          " ${product.category.toString()}",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Text(
-                      "StockQuantity: x${product.stockQuantity.toString()}",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    child: Row(
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)
+                              .translate("StockQuantity"),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "x${product.stockQuantity.toString()}",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
                   ListTile(
@@ -273,7 +296,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                             label: Padding(
                               padding: const EdgeInsets.all(16),
                               child: Text(
-                                'Add To Cart',
+                                AppLocalizations.of(context)
+                                    .translate("Add To Cart"),
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
@@ -308,7 +332,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                   ListTile(
                     title: Text(
-                      'Description',
+                      AppLocalizations.of(context).translate("Description"),
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),

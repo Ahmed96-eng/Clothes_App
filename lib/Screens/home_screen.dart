@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           appBar: AppBar(
               leading: Padding(
-                padding: const EdgeInsets.only(left: 10, top: 8),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 8),
                 child: Container(
                   // padding: EdgeInsets.all(5),
                   child: FloatingActionButton(
@@ -142,11 +142,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.only(
                           top: 16, left: 10, right: 10, bottom: 10),
                       child: Container(
-                          height: height * 0.07,
+                          height: height * 0.08,
                           decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.2),
+                              color: Colors.white38,
                               border: Border.all(
-                                color: Colors.redAccent.withOpacity(0.4),
+                                width: 1.5,
+                                color: Colors.white24,
                               ),
                               borderRadius: BorderRadius.circular(20)),
                           child: TextField(
@@ -154,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               suffixIcon: IconButton(
-                                icon: Icon(Icons.close),
+                                icon: Icon(Icons.close, color: Colors.white),
                                 color: Colors.black54,
                                 onPressed: () {
                                   searchCont.clear();
@@ -165,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               prefixIcon: Icon(
                                 Icons.search,
-                                color: Colors.black,
+                                color: Colors.white,
                               ),
                             ),
                             onChanged: (String value) {
@@ -179,10 +180,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     Container(
                       height: height * 0.09,
                       child: TabBar(
+                          indicatorSize: TabBarIndicatorSize.tab,
                           isScrollable: true,
-                          indicatorColor: Colors.red,
+                          indicatorColor: Colors.white,
                           indicatorPadding: EdgeInsets.only(
-                              bottom: 0, top: 10, right: 20, left: 20),
+                              bottom: 0, top: 10, right: 15, left: 15),
                           tabs: [
                             customTabs(
                                 title: AppLocalizations.of(context)

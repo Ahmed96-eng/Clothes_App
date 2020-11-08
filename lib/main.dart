@@ -72,10 +72,10 @@ class MyApp extends StatelessWidget {
             child: Builder(
               builder: (context) => Consumer<LanguageProvider>(
                 builder: (_, languageProviderRef, child) => MaterialApp(
-                  title: 'Clothes_App',
+                  title: 'Clothes Store',
                   debugShowCheckedModeBanner: false,
                   theme: ThemeData(
-                    primaryColor: Colors.indigo[300],
+                    primaryColor: Colors.cyan[700],
                     // primarySwatch: Colors.,
                     visualDensity: VisualDensity.adaptivePlatformDensity,
                   ),
