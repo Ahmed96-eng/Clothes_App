@@ -15,7 +15,7 @@
    
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Clothes_App"
+        android:label="Clothes Store"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

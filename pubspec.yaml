@@ -38,7 +38,6 @@ dependencies:
   localstorage:
   image_picker: ^0.6.7+4
   image: ^2.1.18
-  cached_network_image: ^2.3.2+1
   firebase_storage: ^4.0.1
   path_provider: ^1.6.18
   firebase_auth: ^0.18.1+1
@@ -47,8 +46,13 @@ dependencies:
   firebase_core: ^0.5.0
   get: ^3.15.0
   geolocator: ^5.3.1
+  cached_network_image: ^2.3.3
+  
+  
   # geolocator: ^6.1.4
   # geocoding: ^1.0.5
+  
+
  
 
 dev_dependencies:

@@ -3,21 +3,19 @@ import 'package:flutter/foundation.dart';
 
 class Favorite extends ChangeNotifier {
   List<Product> products = [];
-  bool isFavorite = false;
+  // bool isFavorite = false;
 
-  changeFavorite(var value) {
-    isFavorite = value;
-    notifyListeners();
+  // changeFavorite(var value) {
+  //   isFavorite = value;
+  //   notifyListeners();
+  // }
+
+  toggelfavorite(String id) {
+    return products.any((product) => product.id == id);
   }
 
-  // favoriteCount() {
-  //   int count = products.length;
-  //   notifyListeners();
-  //   return count;
-  // }
   int get favoriteCount {
     int count = products.length;
-    // notifyListeners();
     return count;
   }
 

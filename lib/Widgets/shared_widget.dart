@@ -223,4 +223,19 @@ class SharedWidget {
       ),
     );
   }
+
+  static BoxDecoration adminDecoration() {
+    return BoxDecoration(
+      gradient: LinearGradient(
+        colors: [
+          Colors.red.withOpacity(0.3),
+          Colors.blueAccent.withOpacity(0.5),
+        ],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        stops: [0, 1],
+      ),
+      borderRadius: BorderRadius.circular(30),
+    );
+  }
 }

@@ -42,39 +42,39 @@ class _EditScreenState extends State<EditScreen> {
     kProductCategory: '',
   };
 
-  void _showErrorDialog(String message) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: Colors.red[400].withOpacity(0.4),
-        title: Text(
-          'An Error Occurred!',
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[800],
-              fontSize: 20),
-        ),
-        content: Text(
-          message,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        actions: <Widget>[
-          FlatButton(
-            shape: StadiumBorder(),
-            color: Colors.white,
-            child: new Text(
-              'Okay',
-              style: TextStyle(color: Colors.black54),
-            ),
-            onPressed: () => Navigator.of(ctx).pop(),
-          )
-        ],
-      ),
-    );
-  }
+  // void showErrorDialog(String message) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (ctx) => AlertDialog(
+  //       backgroundColor: Colors.red[400].withOpacity(0.4),
+  //       title: Text(
+  //         'An Error Occurred!',
+  //         style: TextStyle(
+  //             fontWeight: FontWeight.bold,
+  //             color: Colors.grey[800],
+  //             fontSize: 20),
+  //       ),
+  //       content: Text(
+  //         message,
+  //         style: TextStyle(
+  //           fontWeight: FontWeight.bold,
+  //           color: Colors.white,
+  //         ),
+  //       ),
+  //       actions: <Widget>[
+  //         FlatButton(
+  //           shape: StadiumBorder(),
+  //           color: Colors.white,
+  //           child: new Text(
+  //             'Okay',
+  //             style: TextStyle(color: Colors.black54),
+  //           ),
+  //           onPressed: () => Navigator.of(ctx).pop(),
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Future<void> _submit() async {
     Product product = ModalRoute.of(context).settings.arguments;

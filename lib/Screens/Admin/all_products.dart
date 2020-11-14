@@ -1,8 +1,9 @@
 import 'package:Clothes_App/Models/product_model.dart';
-import 'package:Clothes_App/Screens/Admin/dashBoard_screen.dart';
 import 'package:Clothes_App/Screens/Admin/edit_screen.dart';
 import 'package:Clothes_App/Services/DataServices.dart';
+import 'package:Clothes_App/Widgets/cachedImageWidget.dart';
 import 'package:Clothes_App/constants.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -98,11 +99,8 @@ class _AllProductScreenState extends State<AllProductScreen> {
                                             ),
                                           ],
                                         )),
-                                    child: Container(
-                                      child: Image.network(
-                                        products[index].image,
-                                        fit: BoxFit.fill,
-                                      ),
+                                    child: CachedImageWidget(
+                                      imageUrl: products[index].image,
                                     ),
                                     footer: Container(
                                       height: 40,

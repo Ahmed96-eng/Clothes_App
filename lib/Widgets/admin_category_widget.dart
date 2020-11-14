@@ -1,3 +1,4 @@
+import 'package:Clothes_App/Widgets/shared_widget.dart';
 import 'package:Clothes_App/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -15,18 +16,7 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.red.withOpacity(0.3),
-              Colors.blueAccent.withOpacity(0.7),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0, 1],
-          ),
-          borderRadius: BorderRadius.circular(30),
-        ),
+        decoration: SharedWidget.adminDecoration(),
         padding: EdgeInsets.all(20.0),
         child: Center(
           child: GridTile(

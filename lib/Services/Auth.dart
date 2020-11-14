@@ -1,4 +1,3 @@
-import 'package:Clothes_App/Models/http_exception.dart';
 import 'package:Clothes_App/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,11 +10,12 @@ class Auth {
   Future<void> signUp(String email, String password,
       [String userName, String phoneNumber, String id]) async {
     SharedPreferences _pref = await SharedPreferences.getInstance();
+
     await _auth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
       _authRef.collection(kUserCollection).add({
-        kUserIdKey: id,
+        // kUserIdKey: id,
         kUserEmailKey: email,
         kUserPasswordKey: password,
         kUserNameKey: userName,

@@ -57,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final languageProvider =
         Provider.of<LanguageProvider>(context, listen: false);
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    // final screenHeight = MediaQuery.of(context).size.height;
     return WillPopScope(
       onWillPop: _willPopScope,
       child: Scaffold(
@@ -156,16 +156,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 ),
                                 SizedBox(height: 10),
-                                Transform.translate(
-                                  offset: Offset(
-                                      0, screenHeight - screenWidth * 1.69),
-                                  child: Divider(
-                                    color: Colors.blue[300],
-                                    thickness: 2,
-                                    endIndent: screenWidth * 0.25,
-                                    indent: screenWidth * 0.25,
-                                  ),
-                                ),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -177,11 +167,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           onPressed: () {
                                             SharedWidget.showAlertDailog(
                                               context: context,
-                                              labelYes: 'Ok',
+                                              labelYes:
+                                                  AppLocalizations.of(context)
+                                                      .translate("Ok"),
                                               message:
-                                                  'Coming Soon.'.toUpperCase(),
+                                                  AppLocalizations.of(context)
+                                                      .translate("Coming Soon")
+                                                      .toUpperCase(),
                                               labelNo: '',
-                                              titlle: 'hello'.toUpperCase(),
+                                              titlle:
+                                                  AppLocalizations.of(context)
+                                                      .translate("Hello")
+                                                      .toUpperCase(),
                                               onPressNo: () {},
                                               isConfirm: false,
                                               onPressYes: () {
@@ -200,7 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         label: Text('Log Out'),
                                         onPressed: () {
                                           _auth.singOut();
-                                          Navigator.popAndPushNamed(
+                                          Navigator.pushReplacementNamed(
                                               context, AuthScreen.route);
                                         },
                                       ),
@@ -229,10 +226,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           style: kProfileStyle,
                                         ),
                                         title: Text(
-                                          snapshot.data.getStringList(
-                                              kUserLisDataSharedPreferences)[1]??"",
-                                          style: kProfileStyle,
-                                        ),
+                                              snapshot.data.getStringList(
+                                                          kUserLisDataSharedPreferences)[
+                                                      1] ??
+                                                  "",
+                                              style: kProfileStyle,
+                                            ) ??
+                                            "",
                                       ),
                                       ListTile(
                                         leading: Text(
@@ -241,10 +241,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           style: kProfileStyle,
                                         ),
                                         title: Text(
-                                          snapshot.data.getStringList(
-                                              kUserLisDataSharedPreferences)[0]??"",
-                                          style: kProfileStyle,
-                                        ),
+                                              snapshot.data.getStringList(
+                                                          kUserLisDataSharedPreferences)[
+                                                      0] ??
+                                                  "",
+                                              style: kProfileStyle,
+                                            ) ??
+                                            "",
                                       ),
                                       ListTile(
                                         leading: Text(
@@ -253,10 +256,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           style: kProfileStyle,
                                         ),
                                         title: Text(
-                                          snapshot.data.getStringList(
-                                              kUserLisDataSharedPreferences)[2]??"",
-                                          style: kProfileStyle,
-                                        ),
+                                              snapshot.data.getStringList(
+                                                          kUserLisDataSharedPreferences)[
+                                                      2] ??
+                                                  "",
+                                              style: kProfileStyle,
+                                            ) ??
+                                            "",
                                       ),
                                       // Text(
                                       //   "$kUserNameKey: ${snapshot.data.getStringList(kUserLisDataSharedPreferences)[1]}",

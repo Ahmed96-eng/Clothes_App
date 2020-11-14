@@ -5,6 +5,7 @@ class Order {
   String userName;
   String userPhoneNumber;
   String userEmail;
+  String dateTime;
   Order({
     this.id,
     this.totalPrice,
@@ -12,5 +13,6 @@ class Order {
     this.userEmail,
     this.userName,
     this.userPhoneNumber,
+    this.dateTime,
   });
 }

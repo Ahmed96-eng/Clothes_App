@@ -1,17 +1,18 @@
 import 'package:Clothes_App/Models/product_model.dart';
 import 'package:Clothes_App/Providers/cart.dart';
 import 'package:Clothes_App/Providers/favorite.dart';
-import 'package:Clothes_App/Providers/language_provider.dart';
 import 'package:Clothes_App/Screens/favorite_screen.dart';
 import 'package:Clothes_App/Screens/profile_screen.dart';
+import 'package:Clothes_App/Widgets/appDrawerWidget.dart';
 import 'package:Clothes_App/Widgets/app_localizations.dart';
 import 'package:Clothes_App/Widgets/badge.dart';
+import 'package:Clothes_App/Widgets/cachedImageWidget.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'cart_screen.dart';
-import 'home_screen.dart';
 
 class ProductDetails extends StatefulWidget {
   static const route = 'product_details';
@@ -40,11 +41,10 @@ class _ProductDetailsState extends State<ProductDetails> {
     Product product = ModalRoute.of(context).settings.arguments;
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final languageProvider =
-        Provider.of<LanguageProvider>(context, listen: false);
     return WillPopScope(
       onWillPop: _willPopScope,
       child: Scaffold(
+        drawer: AppDrawerWidget(),
         body: Stack(
           children: [
             Container(
@@ -58,26 +58,25 @@ class _ProductDetailsState extends State<ProductDetails> {
                   floating: true,
                   excludeHeaderSemantics: true,
                   automaticallyImplyLeading: true,
-                  backgroundColor: Colors.redAccent.withOpacity(0.4),
+
                   pinned: true,
                   expandedHeight: height * 0.45,
-                  leading: Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 8),
-                    child: Container(
-                      // padding: EdgeInsets.all(5),
-                      child: FloatingActionButton(
-                        backgroundColor: Colors.blue[300],
-                        child: Icon(Icons.person),
-                        onPressed: () {
-                          Navigator.pushNamed(context, ProfileScreen.route);
-                        },
-                      ),
-                    ),
-                  ),
+                  // leading: Padding(
+                  //   padding: const EdgeInsets.only(left: 10, top: 8),
+                  //   child: Container(
+                  //     // padding: EdgeInsets.all(5),
+                  //     child: FloatingActionButton(
+                  //       backgroundColor: Colors.blue[300],
+                  //       child: Icon(Icons.person),
+                  //       onPressed: () {
+                  //         Navigator.pushNamed(context, ProfileScreen.route);
+                  //       },
+                  //     ),
+                  //   ),
+                  // ),
                   flexibleSpace: FlexibleSpaceBar(
-                    background: Image.network(
-                      product.image,
-                      fit: BoxFit.cover,
+                    background: CachedImageWidget(
+                      imageUrl: product.image,
                     ),
                   ),
                   actions: [
@@ -145,44 +144,45 @@ class _ProductDetailsState extends State<ProductDetails> {
                           child: Center(
                             child: IconButton(
                                 icon: Icon(
-                                  product.isFavorite
+                                  favoriteProvider.toggelfavorite(product.id)
                                       ? Icons.favorite
                                       : Icons.favorite_border,
-                                  color: product.isFavorite
+                                  color: favoriteProvider
+                                          .toggelfavorite(product.id)
                                       ? Colors.red[500]
                                       : Colors.white,
                                   size: 26,
                                 ),
                                 onPressed: () {
+                                  // print(
+                                  //     ',,,,,,,,,,,,,,,,,,,,,,,,${favoriteProvider.isFavorite}');
                                   print(
-                                      ',,,,,,,,,,,,,,,,,,,,,,,,${favoriteProvider.isFavorite}');
+                                      ',,,,,,,,,,,,,111111111111111111,,,,,,,,,,,${product.id}');
 
-                                  if (product.isFavorite == false) {
+                                  if (!favoriteProvider
+                                      .toggelfavorite(product.id)) {
                                     favoriteProvider
                                         .addProductToFavorite(product);
-                                    favoriteProvider.changeFavorite(
-                                        product.isFavorite = true);
-                                    // setState(() {
-                                    //   product.isFavorite = true;
-                                    // });
+                                    // favoriteProvider.changeFavorite(
+                                    //     favoriteProvider.isFavorite = true);
+
                                     SharedWidget.showToastMsg(
                                         'Add To Favorite Success ',
                                         time: 2);
-                                    print(
-                                        ',,,,,,,,,,,,000000000,,,,,,,,,,,,${favoriteProvider.isFavorite}');
                                   } else {
                                     favoriteProvider
                                         .removeProductFromFavorite(product);
-                                    favoriteProvider.changeFavorite(
-                                        product.isFavorite = false);
+                                    // favoriteProvider.changeFavorite(
+                                    //     favoriteProvider.isFavorite = false);
+
                                     // setState(() {
                                     //   product.isFavorite = false;
                                     // });
                                     SharedWidget.showToastMsg(
                                         'Delete From Favorite Success ',
                                         time: 2);
-                                    print(
-                                        ',,,,,,,,,222222222222,,,,,,,,,,,,,,,${favoriteProvider.isFavorite}');
+                                    // print(
+                                    //     ',,,,,,,,,222222222222,,,,,,,,,,,,,,,${favoriteProvider.isFavorite}');
                                   }
                                 }),
                           ),

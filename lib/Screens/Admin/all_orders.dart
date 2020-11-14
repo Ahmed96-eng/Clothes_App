@@ -4,6 +4,7 @@ import 'package:Clothes_App/Services/DataServices.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
 import 'package:Clothes_App/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AllordersScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class AllordersScreen extends StatefulWidget {
 
 class _AllordersScreenState extends State<AllordersScreen> {
   final _dataServices = DataServices();
-
+  final _auth = FirebaseAuth.instance;
   Future<bool> _willPopScope() async {
     Navigator.of(context).pop();
     // Navigator.of(context).pushNamed(HomeScreen.route);
@@ -51,6 +52,7 @@ class _AllordersScreenState extends State<AllordersScreen> {
                   userName: doc.data()[kUserNameKey],
                   userEmail: doc.data()[kUserEmailKey],
                   userPhoneNumber: doc.data()[kUserPhoneNumberKey],
+                  dateTime: doc.data()[kDateTime].toString(),
                 ));
               }
               return Stack(
@@ -78,6 +80,16 @@ class _AllordersScreenState extends State<AllordersScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text("# ${orders[index].id.toString()}"),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, top: 5, bottom: 5),
+                                  child: Text(
+                                    "$kUserEmailKey : ${orders[index].userEmail.toString()}",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                                 SizedBox(height: 15),
                                 Padding(
                                   padding: const EdgeInsets.only(
@@ -95,12 +107,6 @@ class _AllordersScreenState extends State<AllordersScreen> {
                                   padding: const EdgeInsets.only(
                                       left: 15, top: 5, bottom: 5),
                                   child: Text(
-                                      "$kUserEmailKey : ${orders[index].userEmail.toString()}"),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, top: 5, bottom: 5),
-                                  child: Text(
                                       "Total Order Price: ${orders[index].totalPrice.toString()}"),
                                 ),
                                 Padding(
@@ -108,6 +114,12 @@ class _AllordersScreenState extends State<AllordersScreen> {
                                       left: 15, top: 5, bottom: 5),
                                   child: Text(
                                       "$kAddress : ${orders[index].address.toString()}"),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, top: 5, bottom: 5),
+                                  child: Text(
+                                      "$kDateTime : ${orders[index].dateTime.toString()}"),
                                 ),
                               ],
                             ),

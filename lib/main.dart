@@ -10,11 +10,10 @@ import 'package:Clothes_App/Screens/auth_screen.dart';
 import 'package:Clothes_App/Screens/cart_screen.dart';
 import 'package:Clothes_App/Screens/favorite_screen.dart';
 import 'package:Clothes_App/Screens/home_screen.dart';
+import 'package:Clothes_App/Screens/order_screen.dart';
 import 'package:Clothes_App/Screens/productDetails.dart';
 import 'package:Clothes_App/Screens/profile_screen.dart';
 import 'package:Clothes_App/Widgets/app_localizations.dart';
-import 'package:Clothes_App/Widgets/shared_widget.dart';
-import 'package:Clothes_App/testOfGeolocator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -76,6 +75,7 @@ class MyApp extends StatelessWidget {
                   debugShowCheckedModeBanner: false,
                   theme: ThemeData(
                     primaryColor: Colors.cyan[700],
+
                     // primarySwatch: Colors.,
                     visualDensity: VisualDensity.adaptivePlatformDensity,
                   ),
@@ -140,6 +140,7 @@ class MyApp extends StatelessWidget {
                     OrderDetails.route: (context) => OrderDetails(),
                     ProfileScreen.route: (context) => ProfileScreen(),
                     DashBoardScreen.route: (context) => DashBoardScreen(),
+                    OrderScreen.route: (context) => OrderScreen(),
                   },
                 ),
               ),

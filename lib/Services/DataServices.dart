@@ -1,16 +1,14 @@
 import 'package:Clothes_App/Models/http_exception.dart';
 import 'package:Clothes_App/Models/product_model.dart';
-import 'package:Clothes_App/Models/user.dart';
 import 'package:Clothes_App/Widgets/shared_widget.dart';
 import 'package:Clothes_App/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DataServices {
   final _productRef = FirebaseFirestore.instance.collection(kProductCollection);
   final _orderRef = FirebaseFirestore.instance.collection(kOrderCollection);
   final _usersRef = FirebaseFirestore.instance.collection(kUserCollection);
-  final _userDocID = FirebaseFirestore.instance.collection(kUserCollection).id;
+  // final _userDocID = FirebaseFirestore.instance.collection(kUserCollection).id;
 
   void addProduct(
       {String name,
@@ -84,6 +82,7 @@ class DataServices {
     docRef.set(data);
     for (var product in products) {
       docRef.collection(kOrderDetailsCollection).doc().set({
+        kProductImage: product.image,
         kProductName: product.name,
         kProductPrice: product.price.toString(),
         kProductQuantity: product.quantity.toString(),

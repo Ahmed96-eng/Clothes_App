@@ -35,6 +35,7 @@ String kOrderCollection = 'orders';
 String kOrderDetailsCollection = 'orderDetails';
 String kTotalPrice = 'totalPrice';
 String kAddress = 'address';
+String kDateTime = 'dateTime';
 
 /////////////////// SharedPreferences keys ///////////////
 
